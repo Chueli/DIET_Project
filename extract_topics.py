@@ -1,3 +1,4 @@
+from settings import *
 from sentence_transformers import SentenceTransformer, util
 import torch
 # PS. to make this work you also need pytorch installed.
@@ -16,8 +17,9 @@ topics = [
     "Cross-Validation",
     "Support Vector Machines"
 ]
-print('Downloading model')
-model = SentenceTransformer('all-MiniLM-L6-v2')
+
+print('Loading Model')
+model = SentenceTransformer(modelPath)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(torch.version.cuda)
