@@ -1,4 +1,5 @@
 from sentence_transformers import SentenceTransformer, util
+import torch
 # PS. to make this work you also need pytorch installed.
 
 # for the demo, we can jsut rely on a pre-defined set of topics and this is just a "random" list 
@@ -15,9 +16,14 @@ topics = [
     "Cross-Validation",
     "Support Vector Machines"
 ]
-
 print('Downloading model')
 model = SentenceTransformer('all-MiniLM-L6-v2')
+
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(torch.version.cuda)
+
+model.to(device)
+
 print("embedding topics")
 topic_embeddings = model.encode(topics, normalize_embeddings=True)
 
@@ -29,7 +35,10 @@ note_embedding = model.encode(student_note, normalize_embeddings=True)
 print("computing sim")
 similarities = util.dot_score(note_embedding, topic_embeddings)
 
-# match to top-n topics
-import numpy as np
-top_idx = np.argsort(similarities[0])[::-1][:3]
-[(topics[i], similarities[0][i].item()) for i in top_idx]
+#print(similarities)
+
+# Get top 3 similarities and their indices
+top_values, top_idx = torch.topk(similarities[0], k=3)
+
+print("Matching topics:")
+print([(topics[i], similarities[0][i].item()) for i in top_idx])
