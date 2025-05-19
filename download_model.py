@@ -2,7 +2,7 @@ from settings import *
 from sentence_transformers import SentenceTransformer
 
 print('Downloading model')
-model = SentenceTransformer(modelName)
+model = SentenceTransformer(MODEL_NAME)
 
-print("Saved model to" + modelPath)
-model.save(modelPath)
+print("Saved model to" + MODEL_PATH)
+model.save(MODEL_PATH)

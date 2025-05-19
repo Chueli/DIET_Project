@@ -19,7 +19,7 @@ topics = [
 ]
 
 print('Loading Model')
-model = SentenceTransformer(modelPath)
+model = SentenceTransformer(MODEL_PATH)
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print(torch.version.cuda)
