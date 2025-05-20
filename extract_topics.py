@@ -20,12 +20,6 @@ topics = [
 
 model = load_model()
 
-device_str = "cuda:0" if torch.cuda.is_available() else "cpu"
-device = torch.device(device_str)
-print("Using device: " + device_str) 
-
-model.to(device)
-
 print("embedding topics")
 topic_embeddings = model.encode(topics, normalize_embeddings=True)
 
