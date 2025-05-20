@@ -5,7 +5,36 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
 
 import string
-from settings import NUM_TOPICS, NUM_WORDS
+import json
+from settings import NUM_TOPICS, NUM_WORDS, DATA_PATH
+
+
+def read_notes(file_name):
+    """
+    Read notes from a json file and return them as a list of strings.
+    
+    Args:
+        filename (str): name of the json file containing notes in the /data/ directory
+        
+    Returns:
+        list: List of strings, where each string is a note
+    """
+
+    json_path = f'{DATA_PATH}{file_name}'
+    try:
+        with open(json_path, 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            # extract just the 'note' field from each dictionary in the list
+            return [item['note'] for item in data]
+    except FileNotFoundError:
+        print(f"Error: File not found at {json_path}")
+        return []
+    except json.JSONDecodeError:
+        print(f"Error: Invalid JSON format in {json_path}")
+        return []
+    except KeyError:
+        print(f"Error: Notes in {json_path} don't have the expected 'note' field")
+        return []
 
 
 def extract_topics(text, num_topics=NUM_TOPICS, num_words=NUM_WORDS):
@@ -64,3 +93,4 @@ def extract_topics(text, num_topics=NUM_TOPICS, num_words=NUM_WORDS):
         topic_results.append(", ".join(top_words))
     
     return topic_results
+
