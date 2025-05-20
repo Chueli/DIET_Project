@@ -1,32 +1,46 @@
 from sentence_transformers import SentenceTransformer, util
-import torch
-from load_model import load_model
 # PS. to make this work you also need pytorch installed.
+import torch
+
+from load_model import load_model
+from settings import diet_topics as topics
+from utils import read_notes
+
 
 # for the demo, we can jsut rely on a pre-defined set of topics and this is just a "random" list 
 # but we can maybe tailor this ot the DiET course.
-topics = [
-    "Probability Distributions",
-    "Bayes' Theorem",
-    "Maximum Likelihood Estimation",
-    "Linear Regression",
-    "Decision Trees",
-    "Overfitting and Regularization",
-    "Neural Networks",
-    "Gradient Descent",
-    "Cross-Validation",
-    "Support Vector Machines"
-]
+# topics = [
+#     "Probability Distributions",
+#     "Bayes' Theorem",
+#     "Maximum Likelihood Estimation",
+#     "Linear Regression",
+#     "Decision Trees",
+#     "Overfitting and Regularization",
+#     "Neural Networks",
+#     "Gradient Descent",
+#     "Cross-Validation",
+#     "Support Vector Machines"
+# ]
 
 model = load_model()
 
 print("embedding topics")
+print(f'num of topics: {len(topics)}')
+
 topic_embeddings = model.encode(topics, normalize_embeddings=True)
+print(f'shape topic embedding: {topic_embeddings.shape}')
+
 
 print("embedding notes")
 # example to test
-student_note = "I don't understand how overfitting affects decision trees."
-note_embedding = model.encode(student_note, normalize_embeddings=True)
+# student_note = "I don't understand how overfitting affects decision trees."
+
+student_notes_list = read_notes("notes.json") # list of student notes.
+print(f'num of student notes: {len(student_notes_list)}')
+
+note_embedding = model.encode(student_notes_list, normalize_embeddings=True)
+print(f'shape note embedding: {note_embedding.shape}')
+
 
 print("computing sim")
 similarities = util.dot_score(note_embedding, topic_embeddings)
@@ -34,7 +48,33 @@ similarities = util.dot_score(note_embedding, topic_embeddings)
 #print(similarities)
 
 # Get top 3 similarities and their indices
-top_values, top_idx = torch.topk(similarities[0], k=3)
+top_n = 3
+results = []
 
-print("Matching topics:")
-print([(topics[i], similarities[0][i].item()) for i in top_idx])
+for note_idx, similarity_vector in enumerate(similarities):
+    top_values, top_indices = torch.topk(similarity_vector, k=top_n)
+    matched_topics = [(topics[i], similarity_vector[i].item()) for i in top_indices]
+    results.append({
+        "note": student_notes_list[note_idx],
+        "matched_topics": matched_topics
+    })
+
+# print results
+for r in results:
+    print(f"\nNote: {r['note']}")
+    print("Top topics:")
+    for topic, score in r['matched_topics']:
+        print(f"  - {topic} ({score:.4f})")
+
+
+## Later TODO: find common interests/topics ammong students based on their notes
+"""
+from collections import Counter
+
+all_topic_matches = [topic for r in results for topic, _ in r["matched_topics"]]
+topic_freq = Counter(all_topic_matches)
+
+print("\nMost common topics:")
+for topic, count in topic_freq.most_common():
+    print(f"{topic}: {count} mentions")
+"""
