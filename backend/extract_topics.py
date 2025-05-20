@@ -1,4 +1,4 @@
-from settings import *
+from backend.settings import *
 from sentence_transformers import SentenceTransformer, util
 import torch
 # PS. to make this work you also need pytorch installed.

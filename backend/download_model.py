@@ -1,4 +1,4 @@
-from settings import *
+from backend.settings import *
 from sentence_transformers import SentenceTransformer
 
 print('Downloading model')
