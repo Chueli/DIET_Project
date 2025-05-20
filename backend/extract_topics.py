@@ -1,6 +1,6 @@
-from backend.settings import *
 from sentence_transformers import SentenceTransformer, util
 import torch
+from load_model import load_model
 # PS. to make this work you also need pytorch installed.
 
 # for the demo, we can jsut rely on a pre-defined set of topics and this is just a "random" list 
@@ -18,11 +18,11 @@ topics = [
     "Support Vector Machines"
 ]
 
-print('Loading Model')
-model = SentenceTransformer(MODEL_PATH)
+model = load_model()
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(torch.version.cuda)
+device_str = "cuda:0" if torch.cuda.is_available() else "cpu"
+device = torch.device(device_str)
+print("Using device: " + device_str) 
 
 model.to(device)
 
