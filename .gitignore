@@ -13,3 +13,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Model folder
+model/
