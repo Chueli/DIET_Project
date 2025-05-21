@@ -8,7 +8,7 @@ import io
 import os
 import nltk
 
-from ids import BOT_TOKEN, CHANNEL_ID
+from ids import BOT_TOKEN, CHANNEL_ID, CHANNEL_CATEGORY_ID
 from load_model import load_model
 from settings import *
 from utils import *
@@ -119,7 +119,7 @@ async def dbg(ctx):
 @bot.event
 async def on_message(message: discord.Message):
 
-    if message.author == bot.user or message.channel.id != CHANNEL_ID:
+    if message.author == bot.user or message.channel.category_id != CHANNEL_CATEGORY_ID:
         return
 
     await bot.process_commands(message)
