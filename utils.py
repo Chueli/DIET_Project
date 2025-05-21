@@ -1,3 +1,6 @@
+import io
+import PyPDF2
+import discord
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
@@ -64,3 +67,35 @@ def extract_topics(text, num_topics=NUM_TOPICS, num_words=NUM_WORDS):
         topic_results.append(", ".join(top_words))
     
     return topic_results
+
+async def extract_text(message: discord.Message):
+    text = ""
+    text += message.content + " "
+    if text.startswith("!extract ") or text.startswith("!topics "):
+        text = text.split(' ', 1)[1]
+    elif text.startswith("!extract\n") or text.startswith("!topics\n"):
+        text = text.split('\n', 1)[1]
+    if len(message.attachments) != 0:
+        attachment = message.attachments[0]
+        # Check if the attachment is a PDF
+        if attachment.filename.endswith('.pdf'):
+            # Download the PDF file
+            pdf_bytes = await attachment.read()
+            pdf_file = io.BytesIO(pdf_bytes)
+            
+            # Read PDF content
+            pdf_reader = PyPDF2.PdfReader(pdf_file)
+            num_pages = len(pdf_reader.pages)
+            
+            # Extract text from all pages
+            for page_num in range(num_pages):
+                page = pdf_reader.pages[page_num]
+                newtext = page.extract_text()
+                text += newtext + "\n"
+        if attachment.filename.endswith('.txt'):
+            # Download the TXT file
+            txt_bytes = await attachment.read()
+            txt_content = txt_bytes.decode('utf-8', errors='ignore')  # decode to string
+            text += txt_content.strip() + "\n"
+    text.strip()
+    return text
