@@ -8,11 +8,13 @@ def load_model():
     Loads the model given in the settings by either downloading it or loading it from cache
     It also loads it onto the gpu, if available.
     '''
-    if len(os.listdir(MODEL_PATH)) == 0:
+    
+    # check if model file exists in dir
+    if not os.path.exists(MODEL_PATH) or not os.path.isdir(MODEL_PATH) or len(os.listdir(MODEL_PATH)) == 0:
         print('Downloading model')
         model = SentenceTransformer(MODEL_NAME)
-        print("Saved model to" + MODEL_PATH)
-        model.save(MODEL_PATH) 
+        print(f"Saving model to {MODEL_PATH}")
+        model.save(MODEL_PATH)
     else:
         print('Loading model from disk')
         model = SentenceTransformer(MODEL_PATH)

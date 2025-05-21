@@ -1,0 +1,50 @@
+[
+  {
+    "note": "Why does it feel like designing for 'easy to use' isn't always the same as designing for learning? Simpler isn't always better?",
+    "topics": ["UI/UX Principles", "Cognitive Load Theory"]
+  },
+  {
+    "note": "Watched that video again, still not clear how audio adds value when there's already text on screen. Is it just redundant or am I missing something?",
+    "topics": ["Modality Principle", "Audio Modality", "Dual-Coding Theory"]
+  },
+  {
+    "note": "Still confused: how do kids actually learn through games? Like, what makes it work versus just playing for fun?",
+    "topics": ["Game-Based Learning", "Intrinsic Motivation", "Cognitive Engagement"]
+  },
+  {
+    "note": "Tried to map out how feedback works between students when they edit each other's code. Gets messy quick — who has the 'final say'?",
+    "topics": ["Peer Feedback", "Conflict Resolution", "Collaboration Structure"]
+  },
+  {
+    "note": "That example where the system adjusted questions in real-time based on how I answered was wild. Felt like it was reading my mind.",
+    "topics": ["Adaptive Learning", "Diagnostic Assessment", "Learner Modeling"]
+  },
+  {
+    "note": "Still not sure how giving students choices actually helps them learn better. Isn’t more freedom sometimes just overwhelming?",
+    "topics": ["Self-Determination Theory", "Intrinsic Motivation", "Cognitive Load Theory"]
+  },
+  {
+    "note": "Design session today felt chaotic but fun — lots of sticky notes, sketches, and weird ideas. I wonder if we ever really involve users when we do this though.",
+    "topics": ["Design Thinking", "Participatory Design", "Autobiographical Design"]
+  },
+  {
+    "note": "Class covered how kids learn by watching others and trying it themselves. Makes sense, but how do we build tech that supports that?",
+    "topics": ["Social Learning", "Cognitive Learning Theory", "Educational Technology History"]
+  },
+  {
+    "note": "Had to rewatch the animation twice — the text was flying in while the voice talked over it. Total overload. No idea what I was supposed to focus on.",
+    "topics": ["Multimedia Learning Theory", "Cognitive Load Theory", "Modality Principle"]
+  },
+  {
+    "note": "Feels like everything’s moving toward these mega AI models that do everything. Is this good? Scary? What happens when they get it wrong?",
+    "topics": ["Large Language Models", "Deep Learning NLP", "Epistemology", "Personalized Learning"]
+  },
+  {
+    "note": "We’re supposed to build a tool that adapts to learners and supports group work? How are we even modeling individual vs. group behavior?",
+    "topics": ["Learner Modeling", "Collaborative Learning", "Coordination Awareness"]
+  },
+  {
+    "note": "The idea that you can’t just tell someone something and expect them to know it — you have to build the right experience around it. That's hard.",
+    "topics": ["Cognitive Learning Theory", "Scaffolded Feedback", "Zone of Proximal Development"]
+  }
+]
