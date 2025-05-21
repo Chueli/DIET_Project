@@ -104,8 +104,7 @@ async def extract_text(message: discord.Message):
         text = text.split(' ', 1)[1]
     elif text.startswith("!extract\n") or text.startswith("!topics\n"):
         text = text.split('\n', 1)[1]
-    if len(message.attachments) != 0:
-        attachment = message.attachments[0]
+    for attachment in message.attachments:
         # Check if the attachment is a PDF
         if attachment.filename.endswith('.pdf'):
             # Download the PDF file
