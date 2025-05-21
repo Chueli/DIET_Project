@@ -22,6 +22,7 @@ bot_data = {
     "topic_embeddings": None,
     "topic_strings": None,
     "note_strings": [],
+    "note_embeddings": [],
     "note_topic_similarities": None,
     "model": None
 }
@@ -112,6 +113,7 @@ async def topics(ctx):
 async def dbg(ctx):
     print(bot_data["topic_embeddings"])
     print(bot_data["topic_strings"])
+    print(bot_data["note_embeddings"])
     print(bot_data["note_strings"])
 
 @bot.event
@@ -128,5 +130,7 @@ async def on_message(message: discord.Message):
     text = await extract_text(message)
 
     bot_data["note_strings"].append((message.author.id, text))
+    note_embeds = bot_data["model"].encode(text, normalize_embeddings=True)
+    bot_data["note_embeddings"].append((message.author.id, note_embeds))
     
 bot.run(BOT_TOKEN)
