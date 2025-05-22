@@ -3,6 +3,7 @@ import PyPDF2
 import discord
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from collections import defaultdict
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
@@ -131,57 +132,75 @@ def extract_topics(text, num_topics=NUM_TOPICS, num_words=NUM_WORDS):
     
     return topic_results
 
-def extract_topics_lm():
-    model = load_model()
-
-    print("Computing topic embeddings")
-    topic_embeddings = get_embeddings(model, topics)
-
-
-    print("Computing note embeddings")
-    # example to test
-    # student_note = "I don't understand how overfitting affects decision trees."
-
-    student_notes_list = read_notes("notes.json") # list of student notes.
-    note_embeddings = get_embeddings(model, student_notes_list)
-
-
-    print("Computing similarities between notes and topics")
+def compute_user_topics(note_embeddings, topic_embeddings, topic_strings, top_n=-1):
+    """
+    Compute the top topics for each note using dot product similarity
+    
+    Args:
+        note_embeddings: The embeddings of the notes
+        topic_embeddings: The embeddings of all possible topics
+        topic_strings: The string labels of the topics
+        top_n: Number of top topics to return per note
+        
+    Returns:
+        list: List of top topics with their scores
+    """
     similarities = util.dot_score(note_embeddings, topic_embeddings)
-
-    #print(similarities)
-
-    # Get top 3 similarities and their indices
-    top_n = 3
     results = []
+    
+    if top_n == -1:
+        top_n = len(topic_strings)
+    top_values, top_indices = torch.topk(similarities, k=top_n)
+    # Get the matched topics for all notes
+    for note_idx, (values, indices) in enumerate(zip(top_values, top_indices)):
+        matched_topics = [(topic_strings[i], similarities[note_idx][i].item()) for i in indices]
+        results.append(matched_topics)
+    
+    return results
 
-    for note_idx, similarity_vector in enumerate(similarities):
-        top_values, top_indices = torch.topk(similarity_vector, k=top_n)
-        matched_topics = [(topics[i], similarity_vector[i].item()) for i in top_indices]
-        results.append({
-            "note": student_notes_list[note_idx],
-            "matched_topics": matched_topics
-        })
-
-    # print results
-    for r in results:
-        print(f"\nNote: {r['note']}")
-        print("Top topics:")
-        for topic, score in r['matched_topics']:
-            print(f"  - {topic} ({score:.4f})")
-
-
-    ## Later TODO: find common interests/topics ammong students based on their notes
+def compute_author_similarity(author1_topics, author2_topics):
     """
-    from collections import Counter
-
-    all_topic_matches = [topic for r in results for topic, _ in r["matched_topics"]]
-    topic_freq = Counter(all_topic_matches)
-
-    print("\nMost common topics:")
-    for topic, count in topic_freq.most_common():
-        print(f"{topic}: {count} mentions")
+    Compute similarity between two authors based on their topics and find common topics
+    
+    Args:
+        author1_topics: List of (topic, score) tuples for author 1
+        author2_topics: List of (topic, score) tuples for author 2
+        
+    Returns:
+        tuple: (similarity_score, common_topics) where common_topics is a list of (topic, score1, score2) tuples
     """
+    # create topic-score dictionaries for both students
+    topics1 = defaultdict(float)
+    topics2 = defaultdict(float)
+    
+    # aggregate scores for each topic across all notes
+    for note_topics in author1_topics:
+        for topic, score in note_topics:
+            topics1[topic] += score
+            
+    for note_topics in author2_topics:
+        for topic, score in note_topics:
+            topics2[topic] += score
+    
+    # find common topics and compute similarity
+    similarity = 0
+    common_topics = []
+    all_topics = set(topics1.keys()) | set(topics2.keys())
+    
+    for topic in all_topics:
+        score1 = topics1[topic]
+        score2 = topics2[topic]
+        topic_similarity = score1 * score2
+        similarity += topic_similarity
+        
+        # if both authors have this topic with significant scores
+        if score1 > 0.1 and score2 > 0.1:  # threshold to consider a topic "significant"
+            common_topics.append((topic, score1, score2))
+    
+    # sort common topics by combined score
+    common_topics.sort(key=lambda x: x[1] + x[2], reverse=True)
+    
+    return similarity, common_topics
 
 async def extract_text(message: discord.Message):
     text = ""
