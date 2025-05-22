@@ -9,7 +9,7 @@ import os
 import nltk
 
 from ids import BOT_TOKEN, CHANNEL_ID, CHANNEL_CATEGORY_ID
-from load_model import load_model
+from model_utils import load_model
 from settings import *
 from utils import *
 
