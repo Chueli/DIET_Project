@@ -24,3 +24,10 @@ def load_model():
     print("Using device: " + device_str) 
     model.to(device)    
     return model
+
+def get_embeddings(model, texts):
+    '''
+    Given a list of texts, it returns the embeddings for each text
+    '''
+    embeddings = model.encode(texts, normalize_embeddings=True)
+    return embeddings
