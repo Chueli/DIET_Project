@@ -2,7 +2,7 @@ from sentence_transformers import SentenceTransformer, util
 # PS. to make this work you also need pytorch installed.
 import torch
 
-from load_model import load_model
+from model_utils import *
 from settings import diet_topics as topics
 from utils import read_notes
 
@@ -24,26 +24,20 @@ from utils import read_notes
 
 model = load_model()
 
-print("embedding topics")
-print(f'num of topics: {len(topics)}')
-
-topic_embeddings = model.encode(topics, normalize_embeddings=True)
-print(f'shape topic embedding: {topic_embeddings.shape}')
+print("Computing topic embeddings")
+topic_embeddings = get_embeddings(model, topics)
 
 
-print("embedding notes")
+print("Computing note embeddings")
 # example to test
 # student_note = "I don't understand how overfitting affects decision trees."
 
 student_notes_list = read_notes("notes.json") # list of student notes.
-print(f'num of student notes: {len(student_notes_list)}')
-
-note_embedding = model.encode(student_notes_list, normalize_embeddings=True)
-print(f'shape note embedding: {note_embedding.shape}')
+note_embeddings = get_embeddings(model, student_notes_list)
 
 
-print("computing sim")
-similarities = util.dot_score(note_embedding, topic_embeddings)
+print("Computing similarities between notes and topics")
+similarities = util.dot_score(note_embeddings, topic_embeddings)
 
 #print(similarities)
 
