@@ -9,8 +9,42 @@ from sklearn.decomposition import NMF
 
 import string
 import json
-from settings import NUM_TOPICS, NUM_WORDS, DATA_PATH
+from settings import *
+from settings import diet_topics as topics
 
+import torch
+from sentence_transformers import SentenceTransformer, util
+import os
+
+
+def load_model():
+    '''
+    Loads the model given in the settings by either downloading it or loading it from cache
+    It also loads it onto the gpu, if available.
+    '''
+    
+    # check if model file exists in dir
+    if not os.path.exists(MODEL_PATH) or not os.path.isdir(MODEL_PATH) or len(os.listdir(MODEL_PATH)) == 0:
+        print('Downloading model')
+        model = SentenceTransformer(MODEL_NAME)
+        print(f"Saving model to {MODEL_PATH}")
+        model.save(MODEL_PATH)
+    else:
+        print('Loading model from disk')
+        model = SentenceTransformer(MODEL_PATH)
+    
+    device_str = "cuda:0" if torch.cuda.is_available() else "cpu"
+    device = torch.device(device_str)
+    print("Using device: " + device_str) 
+    model.to(device)    
+    return model
+
+def get_embeddings(model, texts):
+    '''
+    Given a list of texts, it returns the embeddings for each text
+    '''
+    embeddings = model.encode(texts, normalize_embeddings=True)
+    return embeddings
 
 def read_notes(file_name):
     """
@@ -96,6 +130,58 @@ def extract_topics(text, num_topics=NUM_TOPICS, num_words=NUM_WORDS):
         topic_results.append(", ".join(top_words))
     
     return topic_results
+
+def extract_topics_lm():
+    model = load_model()
+
+    print("Computing topic embeddings")
+    topic_embeddings = get_embeddings(model, topics)
+
+
+    print("Computing note embeddings")
+    # example to test
+    # student_note = "I don't understand how overfitting affects decision trees."
+
+    student_notes_list = read_notes("notes.json") # list of student notes.
+    note_embeddings = get_embeddings(model, student_notes_list)
+
+
+    print("Computing similarities between notes and topics")
+    similarities = util.dot_score(note_embeddings, topic_embeddings)
+
+    #print(similarities)
+
+    # Get top 3 similarities and their indices
+    top_n = 3
+    results = []
+
+    for note_idx, similarity_vector in enumerate(similarities):
+        top_values, top_indices = torch.topk(similarity_vector, k=top_n)
+        matched_topics = [(topics[i], similarity_vector[i].item()) for i in top_indices]
+        results.append({
+            "note": student_notes_list[note_idx],
+            "matched_topics": matched_topics
+        })
+
+    # print results
+    for r in results:
+        print(f"\nNote: {r['note']}")
+        print("Top topics:")
+        for topic, score in r['matched_topics']:
+            print(f"  - {topic} ({score:.4f})")
+
+
+    ## Later TODO: find common interests/topics ammong students based on their notes
+    """
+    from collections import Counter
+
+    all_topic_matches = [topic for r in results for topic, _ in r["matched_topics"]]
+    topic_freq = Counter(all_topic_matches)
+
+    print("\nMost common topics:")
+    for topic, count in topic_freq.most_common():
+        print(f"{topic}: {count} mentions")
+    """
 
 async def extract_text(message: discord.Message):
     text = ""
