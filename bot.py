@@ -178,8 +178,11 @@ async def match(ctx):
         result_msg += thread_msg + "\n"
 
         at = f"<@{author1_id}> <@{author2_id}>\n"
-        greeting = "Hey, you have been assigned to this thread since you have expressed similar interest in the following topics\n"
-        thread_msg = at + greeting + thread_msg
+        greeting = (f"Hey {at}! You've been grouped together in this thread because you've shown similar interests "
+           "in your notes and questions. Introduce yourselves to one another if you're meeting for the first time! "
+           "I encourage you to share your notes and questions with one another to start this conversation, and you "
+           "can always @ the TA if you need help! Here are your common topics:\n")
+        thread_msg = greeting + thread_msg
 
         await channel.create_thread(
             name=common_topics[0][0],
@@ -333,20 +336,20 @@ def add_notes():
         [ 
         "i think for me to be motivated i often need to have a lot of structure and less self determination",
         "I'm struggling with cognitive load theory and how it relates to UI design",
-        "Really interested in how social learning works in online environments",
+        "Really interested in how social learning works in online environments, especially in classroom or seminar settings",
         "my experience of learning has had very little to do with things like what i am expecting to gain, and instead i just see what i end up learning"
         ],
         [
         "The idea that you can’t just tell someone something and expect them to know it — you have to build the right experience around it. That's hard.",
         "We’re supposed to build a tool that adapts to learners and supports group work? How are we even modeling individual vs. group behavior?",
-        "Feels like everything’s moving toward these mega AI models that do everything. Is this good? Scary? What happens when they get it wrong?",
-        "Had to rewatch the animation twice — the text was flying in while the voice talked over it. Total overload. No idea what I was supposed to focus on."
+        "I use duolingo very frequently and it has definitely helped me build a habit but i think i do it mostly for the points and not really for the learning",
+        "I have noticed that many learners' motivation comes from whether or not they are interested in the topic and have an innate sense of enthusiasm for it, its very rare that a textbook created enthusiasm in anyone around me."
         ],
         [
-        "Class covered how kids learn by watching others and trying it themselves. Makes sense, but how do we build tech that supports that?",
-        "Design session today felt chaotic but fun — lots of sticky notes, sketches, and weird ideas. I wonder if we ever really involve users when we do this though.",
+        "The class covered how kids learn by watching others and trying it themselves. Makes sense, but how do we build tech that supports that?",
+        "so is autonomy central for a student to be motivated to engage in the hard task of learning?",
         "Still not sure how giving students choices actually helps them learn better. Isn’t more freedom sometimes just overwhelming?",
-        "That example where the system adjusted questions in real-time based on how I answered was wild. Felt like it was reading my mind."
+        "i think for me to be motivated i often need to have a lot of structure and less self determination"
         ]
     ]
     count = 0
