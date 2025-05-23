@@ -1,4 +1,4 @@
-import discord.context_managers
+from datetime import datetime, timezone
 from discord.ext import commands, tasks
 import discord
 
@@ -24,8 +24,7 @@ bot_data = {
     "topic_strings": None,
     "note_strings": [],
     "note_embeddings": [],
-    "note_topic_similarities": None,
-    "model": None
+    "model": None,
 }
 
 @bot.event
@@ -43,26 +42,7 @@ async def on_ready():
         nltk.download('punkt_tab')
         nltk.download('stopwords')
 
-    # add mock user data
-    mock_user_id = 302145648759668737  # Replace with your mock user ID
-    mock_notes = [
-        "i think for me to be motivated i often need to have a lot of structure and less self determination",
-        "I'm struggling with cognitive load theory and how it relates to UI design",
-        "Really interested in how social learning works in online environments",
-        "my experience of learning has had very little to do with things like what i am expecting to gain, and instead i just see what i end up learning"
-    ]
-    
-    # Convert notes to embeddings and add to bot_data
-    for note in mock_notes:
-        bot_data["note_strings"].append((mock_user_id, note))
-        note_embeds = torch.from_numpy(bot_data["model"].encode(note, normalize_embeddings=True))
-        bot_data["note_embeddings"].append((mock_user_id, note_embeds))
-    
-    print(f"Added {len(mock_notes)} mock notes for testing")
-
     print("Startup Complete")
-    channel = bot.get_channel(CHANNEL_ID)
-    await channel.send("Hello! I am here to assist")
 
 @bot.command()
 async def info(ctx):
@@ -125,13 +105,6 @@ async def topics(ctx):
     await ctx.send(f"\nGenerated {len(topics)} embeddings of dimension {bot_data['topic_embeddings'].shape[1]}")
 
 @bot.command()
-async def dbg(ctx):
-    print(bot_data["topic_embeddings"])
-    print(bot_data["topic_strings"])
-    print(bot_data["note_embeddings"])
-    print(bot_data["note_strings"])
-
-@bot.command()
 async def match(ctx):
     '''
     Match students with similar topics based on their notes and show their common interests
@@ -176,6 +149,9 @@ async def match(ctx):
     # sort by similarity score
     similarities.sort(key=lambda x: x[2], reverse=True)
     
+    # channel for thread creation
+    channel = bot.get_channel(CHANNEL_ID)
+    
     # format and send results
     result_msg = "**Student Matches Based on Similar Topics:**\n\n"
     for author1_id, author2_id, sim, common_topics in similarities[:5]:  # Show top 5 matches
@@ -183,24 +159,33 @@ async def match(ctx):
         author2 = await bot.fetch_user(author2_id)
         
         # Add the pair of authors and their similarity score
-        result_msg += f"**{author1.name} & {author2.name}** (Similarity: {sim:.2f})\n"
+        thread_msg = f"**{author1.name} & {author2.name}** (Similarity: {sim:.2f})\n"
         
         # Add their common topics
         if common_topics:
-            result_msg += "Common interests:\n"
+            thread_msg += "Common interests:\n"
             for topic, score1, score2 in common_topics[:3]:  # Show top 3 common topics
                 avg_score = (score1 + score2) / 2
-                result_msg += f"- {topic} (Interest level: {avg_score:.2f})\n"
+                thread_msg += f"- {topic} (Interest level: {avg_score:.2f})\n"
         else:
-            result_msg += "No exactly matching topics, but similar interests in:\n"
+            thread_msg += "No exactly matching topics, but similar interests in:\n"
             # Show top topics for each author
             author1_top = set(topic for topics in author_topics[author1_id] for topic, _ in topics[:3])
             author2_top = set(topic for topics in author_topics[author2_id] for topic, _ in topics[:3])
-            result_msg += f"- {author1.name}: {', '.join(list(author1_top)[:3])}\n"
-            result_msg += f"- {author2.name}: {', '.join(list(author2_top)[:3])}\n"
+            thread_msg += f"- {author1.name}: {', '.join(list(author1_top)[:3])}\n"
+            thread_msg += f"- {author2.name}: {', '.join(list(author2_top)[:3])}\n"
         
-        result_msg += "\n"
-    
+        result_msg += thread_msg + "\n"
+
+        at = f"<@{author1_id}> <@{author2_id}>\n"
+        greeting = "Hey, you have been assigned to this thread since you have expressed similar interest in the following topics\n"
+        thread_msg = at + greeting + thread_msg
+
+        await channel.create_thread(
+            name=common_topics[0][0],
+            content=thread_msg
+        )
+   
     await ctx.send(result_msg)
 
 
@@ -288,6 +273,40 @@ async def matchgroup(ctx, group_size: int = 3):
     
     await ctx.send(result_msg)
 
+@bot.command()
+async def dbg(ctx):
+    print(bot_data["topic_embeddings"])
+    print(bot_data["topic_strings"])
+    print(bot_data["note_embeddings"])
+    print(bot_data["note_strings"])
+
+@bot.command()
+async def purgeforum(ctx):
+    forum_channel = bot.get_channel(CHANNEL_ID)
+    for thread in forum_channel.threads:
+        await thread.delete()
+
+@bot.command()
+async def purgechannel(ctx, timestamp: str):
+    try:
+        target_time = datetime.fromisoformat(timestamp).replace(tzinfo=timezone.utc)
+
+        def is_after(message):
+            return message.created_at > target_time
+
+        await ctx.channel.purge(limit=1000, check=is_after)
+    except ValueError:
+        await ctx.send("❌ Invalid timestamp format. Use ISO format: `YYYY-MM-DDTHH:MM:SS`")
+
+@bot.command()
+async def resetnotes(ctx):
+    bot_data["note_embeddings"] = []
+    bot_data["note_strings"] = []
+
+@bot.command()
+async def addmock(ctx):
+    add_notes()
+
 @bot.event
 async def on_message(message: discord.Message):
 
@@ -304,5 +323,42 @@ async def on_message(message: discord.Message):
     bot_data["note_strings"].append((message.author.id, text))
     note_embeds = torch.from_numpy(bot_data["model"].encode(text, normalize_embeddings=True))
     bot_data["note_embeddings"].append((message.author.id, note_embeds))
+
+def add_notes():
+    # Andy 256144780977766400
+    # Clarasecondary  384138646560702475
+    # Davidos 163279380565458944
+    mock_user_ids = [256144780977766400, 384138646560702475, 163279380565458944]
+    mock_user_notes = [
+        [ 
+        "i think for me to be motivated i often need to have a lot of structure and less self determination",
+        "I'm struggling with cognitive load theory and how it relates to UI design",
+        "Really interested in how social learning works in online environments",
+        "my experience of learning has had very little to do with things like what i am expecting to gain, and instead i just see what i end up learning"
+        ],
+        [
+        "The idea that you can’t just tell someone something and expect them to know it — you have to build the right experience around it. That's hard.",
+        "We’re supposed to build a tool that adapts to learners and supports group work? How are we even modeling individual vs. group behavior?",
+        "Feels like everything’s moving toward these mega AI models that do everything. Is this good? Scary? What happens when they get it wrong?",
+        "Had to rewatch the animation twice — the text was flying in while the voice talked over it. Total overload. No idea what I was supposed to focus on."
+        ],
+        [
+        "Class covered how kids learn by watching others and trying it themselves. Makes sense, but how do we build tech that supports that?",
+        "Design session today felt chaotic but fun — lots of sticky notes, sketches, and weird ideas. I wonder if we ever really involve users when we do this though.",
+        "Still not sure how giving students choices actually helps them learn better. Isn’t more freedom sometimes just overwhelming?",
+        "That example where the system adjusted questions in real-time based on how I answered was wild. Felt like it was reading my mind."
+        ]
+    ]
+    count = 0
+    for i in range(len(mock_user_ids)):
+        # Convert notes to embeddings and add to bot_data
+        for note in mock_user_notes[i]:
+            bot_data["note_strings"].append((mock_user_ids[i], note))
+            note_embeds = torch.from_numpy(bot_data["model"].encode(note, normalize_embeddings=True))
+            bot_data["note_embeddings"].append((mock_user_ids[i], note_embeds))
+            count += 1
+           
+    print(f"Added {count} mock notes for testing")
+
     
 bot.run(BOT_TOKEN)
