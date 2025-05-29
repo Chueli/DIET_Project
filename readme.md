@@ -10,16 +10,13 @@ In the ids.py file replace:
 - channel_category_id: the id of the channel category you want the bot to read (ie. where students will put their notes and lecturers create the lecture topics)
 - bot_token:  your bots token (provided on the above website)
 
+In a later build this should be replaced with a .env file
+
 ## Install the required modules
 ```
 pip install requirements.txt
 ```
-## Download the model, you only need to do this once
+## You can now run the bot, it should automatically download all required models and files on the first startup.
 ```
-py download_model.py
-```
-## You can now run the toy example or the bot
-```
-py extract_topics.py
 py bot.py
 ```
