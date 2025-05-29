@@ -2,16 +2,11 @@ from datetime import datetime, timezone
 from discord.ext import commands, tasks
 import discord
 
-import PyPDF2
-import io
-
-import os
 import nltk
 from collections import defaultdict
 
 from ids import BOT_TOKEN, CHANNEL_ID, CHANNEL_CATEGORY_ID
 from settings import *
-from settings import diet_topics as topics
 from utils import *
 
 #give bot all the permissions, probably questionable
@@ -57,9 +52,12 @@ async def extract(ctx):
     
     try:
         all_text = await extract_text(ctx.message)
-        print(all_text)
+
         # Update processing message
         await process_msg.edit(content=f"Extracted text. Analyzing topics...")
+
+        # Analyze text for topics
+        topics = extract_topics(all_text)
 
         # Generate embeddings for the topics using sentence-transformers
         try:

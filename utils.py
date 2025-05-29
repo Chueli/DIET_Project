@@ -11,7 +11,6 @@ from sklearn.decomposition import NMF
 import string
 import json
 from settings import *
-from settings import diet_topics as topics
 
 import torch
 from sentence_transformers import SentenceTransformer, util
