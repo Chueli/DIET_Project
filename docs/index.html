@@ -121,12 +121,12 @@
 
 
   <!-- Teaser video-->
-  <section class="hero teaser">
+  <!--<section class="hero teaser">
     <div class="container is-max-desktop">
       <div class="hero-body">
-        <video poster="" id="tree" autoplay controls muted loop height="100%">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">-->
           <!-- Your video here -->
-          <source src="static/videos/banner_video.mp4" type="video/mp4">
+          <!--<source src="static/videos/banner_video.mp4" type="video/mp4">
         </video>
         <h2 class="subtitle has-text-centered">
           Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat
@@ -134,7 +134,7 @@
         </h2>
       </div>
     </div>
-  </section>
+  </section>-->
   <!-- End teaser video -->
 
   <!-- Paper abstract -->
@@ -145,12 +145,16 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              TODO: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam
-              tempus.
-              Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a
-              vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac
-              gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed
-              vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
+              Social interactions play a crucial role in both student wellbeing and academic achievement, yet educational 
+              institutions often lack systematic approaches to fostering these connections, particularly in informal 
+              learning contexts. This challenge has been amplified by the shift to hybrid and remote learning, which has significantly reduced
+              opportunities for spontaneous social learning-the informal interactions that naturally occur between classes, in
+              study spaces, and during collaborative work.
+            </p>
+            <p>
+              This project presents a solution to facilitate social learning through common academic interests, even in hybrid or remote 
+              learning settings. We developed a discord bot that analyzes students' notes and lecture materials, identifies potential
+              topics of interest for each student and automatically creates groups for students based on similarities. 
             </p>
           </div>
         </div>
@@ -163,7 +167,7 @@
   <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Introduction</h2>
           <div class="content has-text-left">
             <h3 class="title is-8">Context: ECH</h3>
@@ -228,7 +232,7 @@
             <p>
               We summarised the space of existing tools in a number of categories as follows:
             </p>
-            <table class="table is-striped is-hoverable is-fullwidth">
+            <table class="table is-striped is-fullwidth">
               <thead>
                 <tr>
                   <th>Category</th>
@@ -297,10 +301,10 @@
             <p>
               Our comparisons are summarised in the following table:
             </p>
-            <table>
+            <table class="table is-striped is-four-fifths">
             <thead>
               <tr>
-                <th></th>
+                <th style="border-right: 2px solid #dbdbdb;"></th>
                 <th>Set up time</th>
                 <th>Immersion</th>
                 <th>Distraction</th>
@@ -313,7 +317,7 @@
             </thead>
             <tbody>
               <tr>
-                <td>Video</td>
+                <td style="border-right: 2px solid #dbdbdb;">Video</td>
                 <td>Low</td>
                 <td>Medium</td>
                 <td>Low</td>
@@ -324,7 +328,7 @@
                 <td>High</td>
               </tr>
               <tr>
-                <td>Forum</td>
+                <td style="border-right: 2px solid #dbdbdb;">Forum</td>
                 <td>Low</td>
                 <td>Low</td>
                 <td>Low</td>
@@ -335,7 +339,7 @@
                 <td>High</td>
               </tr>
               <tr>
-                <td>Hybrid</td>
+                <td style="border-right: 2px solid #dbdbdb;">Hybrid</td>
                 <td>Low</td>
                 <td>Medium</td>
                 <td>Low</td>
@@ -346,7 +350,7 @@
                 <td>Medium</td>
               </tr>
               <tr>
-                <td>2D</td>
+                <td style="border-right: 2px solid #dbdbdb;">2D</td>
                 <td>Medium</td>
                 <td>High</td>
                 <td>Medium</td>
@@ -357,7 +361,7 @@
                 <td>Low</td>
               </tr>
               <tr>
-                <td>3D</td>
+                <td style="border-right: 2px solid #dbdbdb;">3D</td>
                 <td>High</td>
                 <td>High</td>
                 <td>High</td>
@@ -368,7 +372,7 @@
                 <td>Low</td>
               </tr>
               <tr>
-                <td>VR</td>
+                <td style="border-right: 2px solid #dbdbdb;">VR</td>
                 <td>High</td>
                 <td>High</td>
                 <td>High</td>
@@ -410,7 +414,7 @@
   <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
-        <div class="column is-four-fifths">
+        <div class="column">
           <h2 class="title is-3">Solution</h2>
           <div class="content has-text-left">
             <h3 class="title is-8">Vision</h3>
@@ -493,7 +497,7 @@
   <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-left">
             <h3 class="title is-8">Technical implementation</h3>
             <p>
@@ -523,44 +527,11 @@
     </div>
   </section>
 
-  <!-- Not sure this is a good idea -->
-  <!-- Code image carousel -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title is-3">Code</h2>
-        <div id="results-carousel" class="carousel results-carousel">
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel1.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Student interface
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel2.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Instructor interface
-            </h2>
-          </div>
-          <div class="item">
-            <!-- Your image here -->
-            <img src="static/images/carousel3.jpg" alt="MY ALT TEXT" />
-            <h2 class="subtitle has-text-centered">
-              Forum created for matched students
-            </h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Code image carousel -->
 
 <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
-        <div class="column is-four-fifths">
+        <div class="column">
           <div class="content has-text-left">
             <h3 class="title is-8">Future prospects</h3>
             <p>
