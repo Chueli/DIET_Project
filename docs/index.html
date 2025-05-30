@@ -221,6 +221,7 @@
               Given this context, let’s look at what the current available solutions to hybrid- and remote-learning look like.
             </p>
             <h3 class="title is-8">Current solution space</h3>
+            <h4 class="title is-8">Or: how we made our design choices</h4>
             <p>
               Many digital tools jumped in to fill some of these gaps by experimenting with either including a variety
               of audio-visual and text channels, sometimes co-existing in novel ways. We gathered information about
@@ -417,7 +418,7 @@
         <div class="column">
           <h2 class="title is-3">Solution</h2>
           <div class="content has-text-left">
-            <h3 class="title is-8">Vision</h3>
+            <h3 class="title is-8">Our vision</h3>
             <p>
               We imagine a platform or tool where learners are able to end up in spontaneous connection with others
               based on topics they are jointly interested in, curious about, or have questions about.
@@ -473,26 +474,6 @@
   </section>
   <!-- End Demo image carousel -->
 
-  <!-- Demo Youtube video -->
-  <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container">
-        <!-- Paper video. -->
-        <!-- <h2 class="title is-3">Video Presentation</h2> -->
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-
-            <div class="publication-video">
-              <!-- Youtube embed code here -->
-              <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media"
-                allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- End Demo youtube video -->
 
   <section class="section hero">
     <div class="container is-max-desktop">
@@ -505,22 +486,32 @@
             </p>
             <ul>
               <li>
-                <code><a href="http://discord.py">discord.py</a></code> wrapper library giving us access to the
-                Discord API
+                <code>discord.py</code> wrapper library giving us access to the Discord API,
               </li>
               <li>
                 a file-reading system to extract information from <code>.txt</code> or
-                <code>.pdf</code> attachments
+                <code>.pdf</code> attachments,
               </li>
               <li>
                 a small pre-trained language model to analyse the scope of the course to know which topics
-                any given learner is engaging with
+                any given learner is engaging with,
               </li>
               <li>
-                a matching algorithm which identifies similarities in learners' “topic profiles” to intelligently group
+                a data storage object which tracks learners' developing "topic profiles" as they make notes,
+              </li>
+              <li>
+                and a matching algorithm which identifies similarities in learners' “topic profiles” to intelligently group
                 them.
               </li>
             </ul>
+            <p>
+              We would now like to briefly go over the data pipeline which defines the entire application and its functionality using the 
+              following Flow diagram:
+              <div style="text-align:center;">
+                <img src="static/images/discord_bot_hr.png" alt="Discord Bot Flow Diagram" style="max-width:100%; height:auto;">
+                <p class="has-text-centered"><em>Fig 1: Data pipeline and flow diagram of application functionality..</em></p>
+              </div>
+            </p>
           </div>
         </div>
       </div>
@@ -606,6 +597,29 @@
     </div>
   </section> -->
   <!--End BibTex citation -->
+<section class="section hero">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-left">
+        <div class="column">
+          <div class="content has-text-left">
+            <h3 class="title is-8">References</h3>
+              <p>
+                Cirucci, A. M. (2023). Zoom affordances and identity: A case study. <em>Social Media + Society</em>, <em>9</em>(1), 20563051221146176. https://doi.org/10.1177/20563051221146176
+              </p>
+              <p>
+                Hurst, B., Wallace, R. R., & Nixon, S. B. (2013). The impact of social interaction on student learning. <em>Reading Horizons</em>.
+              </p>
+              <p>
+                Lundeberg, M. A., & Moch, S. D. (1995). Influence of social interaction on cognition: Connected learning in science. <em>The Journal of Higher Education</em>, <em>66</em>(3), 312–335. https://doi.org/10.1080/00221546.1995.11774782
+              </p>
+              <p>
+                Palahan, S. (2022). Relationships between students' social roles and academic performance based on social network analysis. <em>Rangsit Journal of Educational Studies</em>, <em>9</em>, 6287. https://doi.org/10.14456/RJES.2022.5
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <footer class="footer">
