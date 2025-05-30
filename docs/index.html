@@ -125,8 +125,8 @@
     <div class="container is-max-desktop">
       <div class="hero-body">
         <video poster="" id="tree" autoplay controls muted loop height="100%">-->
-          <!-- Your video here -->
-          <!--<source src="static/videos/banner_video.mp4" type="video/mp4">
+  <!-- Your video here -->
+  <!--<source src="static/videos/banner_video.mp4" type="video/mp4">
         </video>
         <h2 class="subtitle has-text-centered">
           Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat
@@ -145,16 +145,21 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              Social interactions play a crucial role in both student wellbeing and academic achievement, yet educational 
-              institutions often lack systematic approaches to fostering these connections, particularly in informal 
-              learning contexts. This challenge has been amplified by the shift to hybrid and remote learning, which has significantly reduced
-              opportunities for spontaneous social learning-the informal interactions that naturally occur between classes, in
+              Social interactions play a crucial role in both student wellbeing and academic achievement, yet
+              educational
+              institutions often lack systematic approaches to fostering these connections, particularly in informal
+              learning contexts. This challenge has been amplified by the shift to hybrid and remote learning, which has
+              significantly reduced
+              opportunities for spontaneous social learning-the informal interactions that naturally occur between
+              classes, in
               study spaces, and during collaborative work.
             </p>
             <p>
-              This project presents a solution to facilitate social learning through common academic interests, even in hybrid or remote 
-              learning settings. We developed a discord bot that analyzes students' notes and lecture materials, identifies potential
-              topics of interest for each student and automatically creates groups for students based on similarities. 
+              This project presents a solution to facilitate social learning through common academic interests, even in
+              hybrid or remote
+              learning settings. We developed a discord bot that analyzes students' notes and lecture materials,
+              identifies potential
+              topics of interest for each student and automatically creates groups for students based on similarities.
             </p>
           </div>
         </div>
@@ -205,20 +210,29 @@
             </p>
             <h3 class="title is-8">The importance of social learning</h3>
             <p>
-              Our motivations for this chosen focus are partially anecdotal as we can recall personally experienced challenges at the peak of 
-              remote-learning during the pandemic, and with the remnants of that learning era which persist in our education today. Alongside this, 
-              we also noticed notable findings in the learning science literature about the importance of social interactions and the relationships 
-              between community, friendship, and measured learning outcomes literature (Lundeberg & Moch, 1995), as well as students’ own perceived 
-              learning outcomes (Hurst, et al., 2023). This positive relationship can further be seen with learners’ GPA performance (Palahan, 2022).
+              Our motivations for this chosen focus are partially anecdotal as we can recall personally experienced
+              challenges at the peak of
+              remote-learning during the pandemic, and with the remnants of that learning era which persist in our
+              education today. Alongside this,
+              we also noticed notable findings in the learning science literature about the importance of social
+              interactions and the relationships
+              between community, friendship, and measured learning outcomes literature (Lundeberg & Moch, 1995), as well
+              as students’ own perceived
+              learning outcomes (Hurst, et al., 2023). This positive relationship can further be seen with learners’ GPA
+              performance (Palahan, 2022).
             </p>
             <p>
-              In our research, a case study of student opinions on <i>Virtual Learning Environments (VLEs)</i> also stood out (Circucci, 2023). Students in this 
-              study reported being “most comfortable with Zoom,” perhaps because of its familiar UI/UX in this social-media age. However, the author also 
-              argues that the affordances of the platform are not conducive to sharing/embodying a social identity as this (false-)comfort does not result 
+              In our research, a case study of student opinions on <i>Virtual Learning Environments (VLEs)</i> also
+              stood out (Circucci, 2023). Students in this
+              study reported being “most comfortable with Zoom,” perhaps because of its familiar UI/UX in this
+              social-media age. However, the author also
+              argues that the affordances of the platform are not conducive to sharing/embodying a social identity as
+              this (false-)comfort does not result
               in students actively participating, turning on their cameras, or building long-term relationships.
             </p>
             <p>
-              Given this context, let’s look at what the current available solutions to hybrid- and remote-learning look like.
+              Given this context, let’s look at what the current available solutions to hybrid- and remote-learning look
+              like.
             </p>
             <h3 class="title is-8">Current solution space</h3>
             <h4 class="title is-8">Or: how we made our design choices</h4>
@@ -303,105 +317,114 @@
               Our comparisons are summarised in the following table:
             </p>
             <table class="table is-striped is-four-fifths">
-            <thead>
-              <tr>
-                <th style="border-right: 2px solid #dbdbdb;"></th>
-                <th>Set up time</th>
-                <th>Immersion</th>
-                <th>Distraction</th>
-                <th>Spontaneity</th>
-                <th>Dynamic Groups</th>
-                <th>Connecting Different Groups</th>
-                <th>Cost</th>
-                <th>Adoption</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">Video</td>
-                <td>Low</td>
-                <td>Medium</td>
-                <td>Low</td>
-                <td>Medium</td>
-                <td>Low</td>
-                <td>Low</td>
-                <td>Low</td>
-                <td>High</td>
-              </tr>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">Forum</td>
-                <td>Low</td>
-                <td>Low</td>
-                <td>Low</td>
-                <td>High</td>
-                <td>Low</td>
-                <td>High</td>
-                <td>Low</td>
-                <td>High</td>
-              </tr>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">Hybrid</td>
-                <td>Low</td>
-                <td>Medium</td>
-                <td>Low</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Low</td>
-                <td>Medium</td>
-              </tr>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">2D</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>Medium</td>
-                <td>Low</td>
-              </tr>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">3D</td>
-                <td>High</td>
-                <td>High</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Low</td>
-              </tr>
-              <tr>
-                <td style="border-right: 2px solid #dbdbdb;">VR</td>
-                <td>High</td>
-                <td>High</td>
-                <td>High</td>
-                <td>Low</td>
-                <td>High</td>
-                <td>Medium</td>
-                <td>High</td>
-                <td>Low</td>
-              </tr>
-            </tbody>
-          </table>
+              <thead>
+                <tr>
+                  <th style="border-right: 2px solid #dbdbdb;"></th>
+                  <th>Set up time</th>
+                  <th>Immersion</th>
+                  <th>Distraction</th>
+                  <th>Spontaneity</th>
+                  <th>Dynamic Groups</th>
+                  <th>Connecting Different Groups</th>
+                  <th>Cost</th>
+                  <th>Adoption</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">Video</td>
+                  <td>Low</td>
+                  <td>Medium</td>
+                  <td>Low</td>
+                  <td>Medium</td>
+                  <td>Low</td>
+                  <td>Low</td>
+                  <td>Low</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">Forum</td>
+                  <td>Low</td>
+                  <td>Low</td>
+                  <td>Low</td>
+                  <td>High</td>
+                  <td>Low</td>
+                  <td>High</td>
+                  <td>Low</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">Hybrid</td>
+                  <td>Low</td>
+                  <td>Medium</td>
+                  <td>Low</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Low</td>
+                  <td>Medium</td>
+                </tr>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">2D</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>Medium</td>
+                  <td>Low</td>
+                </tr>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">3D</td>
+                  <td>High</td>
+                  <td>High</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Low</td>
+                </tr>
+                <tr>
+                  <td style="border-right: 2px solid #dbdbdb;">VR</td>
+                  <td>High</td>
+                  <td>High</td>
+                  <td>High</td>
+                  <td>Low</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>Low</td>
+                </tr>
+              </tbody>
+            </table>
             <h3 class="title is-8">Typical hybrid learning exerience: a case study</h3>
             <p>
-              We would like to go through the experience of a student, Alice, in Heilbronn taking a course that is offered 
-              across both campuses but is based in Zürich. Alice attends her classes once every week on Zoom since this is 
-              a small, elective class, and although she knows that about 5 other students on the Heilbronn campus are taking 
-              the same course, she doesn’t know them well and has never interacted with them before. 
+              We would like to go through the experience of a student, Alice, in Heilbronn taking a course that is
+              offered
+              across both campuses but is based in Zürich. Alice attends her classes once every week on Zoom since this
+              is
+              a small, elective class, and although she knows that about 5 other students on the Heilbronn campus are
+              taking
+              the same course, she doesn’t know them well and has never interacted with them before.
             </p>
             <p>
-              When Alice has a question about the course, during class, she is able to ask it in the Zoom chat or interupt 
-              the teacher while they teach in a physical classroom in Zürich. If she has a question when class is not going 
-              on, her options are to email the teaching team, or send a message in a groupchat to ask if there are others 
-              taking the same course, but the conversation in the groupchat soon moves on to a different topic. 
+              When Alice has a question about the course, during class, she is able to ask it in the Zoom chat or
+              interupt
+              the teacher while they teach in a physical classroom in Zürich. If she has a question when class is not
+              going
+              on, her options are to email the teaching team, or send a message in a groupchat to ask if there are
+              others
+              taking the same course, but the conversation in the groupchat soon moves on to a different topic.
             </p>
             <p>
-              None of these challenges necessarily hinder Alice from passing the course and learning the necessary content 
-              that the course goals aim for. However, she does not experience the full level of engagement with the course 
-              topics as she may have by spending more time with people who are reading the same things as her and learning 
+              None of these challenges necessarily hinder Alice from passing the course and learning the necessary
+              content
+              that the course goals aim for. However, she does not experience the full level of engagement with the
+              course
+              topics as she may have by spending more time with people who are reading the same things as her and
+              learning
               the same new topics together over the semester.
             </p>
           </div>
@@ -441,28 +464,44 @@
   </section>
   <!-- End Solution -->
 
+  <!-- Teaser video-->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video poster="" id="tree" autoplay controls muted loop height="100%">-->
+          <!-- Your video here -->
+          <source src="static/videos/Demo_Video.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          How an interaction with the bot could look like, from both the students and lecturers perspective
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser video -->
+
   <!-- Demo image carousel -->
-  <section class="hero is-small">
+  <!-- <section class="hero is-small">
     <div class="hero-body">
       <div class="container">
         <h2 class="title is-3">Demo</h2>
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item">
-            <!-- Your image here -->
+            
             <img src="static/images/carousel1.jpg" alt="MY ALT TEXT" />
             <h2 class="subtitle has-text-centered">
               Student interface
             </h2>
           </div>
           <div class="item">
-            <!-- Your image here -->
+            
             <img src="static/images/carousel2.jpg" alt="MY ALT TEXT" />
             <h2 class="subtitle has-text-centered">
               Instructor interface
             </h2>
           </div>
           <div class="item">
-            <!-- Your image here -->
+            
             <img src="static/images/carousel3.jpg" alt="MY ALT TEXT" />
             <h2 class="subtitle has-text-centered">
               Forum created for matched students
@@ -471,7 +510,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   <!-- End Demo image carousel -->
 
 
@@ -500,17 +539,21 @@
                 a data storage object which tracks learners' developing "topic profiles" as they make notes,
               </li>
               <li>
-                and a matching algorithm which identifies similarities in learners' “topic profiles” to intelligently group
+                and a matching algorithm which identifies similarities in learners' “topic profiles” to intelligently
+                group
                 them.
               </li>
             </ul>
             <p>
-              We would now like to briefly go over the data pipeline which defines the entire application and its functionality using the 
+              We would now like to briefly go over the data pipeline which defines the entire application and its
+              functionality using the
               following Flow diagram:
-              <div style="text-align:center;">
-                <img src="static/images/discord_bot_hr.png" alt="Discord Bot Flow Diagram" style="max-width:100%; height:auto;">
-                <p class="has-text-centered"><em>Fig 1: Data pipeline and flow diagram of application functionality..</em></p>
-              </div>
+            <div style="text-align:center;">
+              <img src="static/images/discord_bot_hr.png" alt="Discord Bot Flow Diagram"
+                style="max-width:100%; height:auto;">
+              <p class="has-text-centered"><em>Fig 1: Data pipeline and flow diagram of application functionality..</em>
+              </p>
+            </div>
             </p>
           </div>
         </div>
@@ -519,20 +562,20 @@
   </section>
 
 
-<section class="section hero">
+  <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
         <div class="column">
           <div class="content has-text-left">
             <h3 class="title is-8">Future prospects</h3>
             <p>
-              In the context of ETHZ and ECH, we can imagine such a tool being incorporated within the Moodle learning 
+              In the context of ETHZ and ECH, we can imagine such a tool being incorporated within the Moodle learning
               management system, or perhaps the native VideoPortal where lectures are (live-)streamed to ETH members.
             </p>
             <p>
-              The NLP pipeline and matching system could be made more sophisticated to include the ability to determine 
+              The NLP pipeline and matching system could be made more sophisticated to include the ability to determine
               how confident/unsure a learner is on a given topic and group them with others who complement them, and for
-              this we could rely on adding a sentiment analysis layer on to the students' notes. 
+              this we could rely on adding a sentiment analysis layer on to the students' notes.
             </p>
           </div>
         </div>
@@ -597,24 +640,30 @@
     </div>
   </section> -->
   <!--End BibTex citation -->
-<section class="section hero">
+  <section class="section hero">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-left">
         <div class="column">
           <div class="content has-text-left">
             <h3 class="title is-8">References</h3>
-              <p>
-                Cirucci, A. M. (2023). Zoom affordances and identity: A case study. <em>Social Media + Society</em>, <em>9</em>(1), 20563051221146176. https://doi.org/10.1177/20563051221146176
-              </p>
-              <p>
-                Hurst, B., Wallace, R. R., & Nixon, S. B. (2013). The impact of social interaction on student learning. <em>Reading Horizons</em>.
-              </p>
-              <p>
-                Lundeberg, M. A., & Moch, S. D. (1995). Influence of social interaction on cognition: Connected learning in science. <em>The Journal of Higher Education</em>, <em>66</em>(3), 312–335. https://doi.org/10.1080/00221546.1995.11774782
-              </p>
-              <p>
-                Palahan, S. (2022). Relationships between students' social roles and academic performance based on social network analysis. <em>Rangsit Journal of Educational Studies</em>, <em>9</em>, 6287. https://doi.org/10.14456/RJES.2022.5
-              </p>
+            <p>
+              Cirucci, A. M. (2023). Zoom affordances and identity: A case study. <em>Social Media + Society</em>,
+              <em>9</em>(1), 20563051221146176. https://doi.org/10.1177/20563051221146176
+            </p>
+            <p>
+              Hurst, B., Wallace, R. R., & Nixon, S. B. (2013). The impact of social interaction on student learning.
+              <em>Reading Horizons</em>.
+            </p>
+            <p>
+              Lundeberg, M. A., & Moch, S. D. (1995). Influence of social interaction on cognition: Connected learning
+              in science. <em>The Journal of Higher Education</em>, <em>66</em>(3), 312–335.
+              https://doi.org/10.1080/00221546.1995.11774782
+            </p>
+            <p>
+              Palahan, S. (2022). Relationships between students' social roles and academic performance based on social
+              network analysis. <em>Rangsit Journal of Educational Studies</em>, <em>9</em>, 6287.
+              https://doi.org/10.14456/RJES.2022.5
+            </p>
           </div>
         </div>
       </div>
